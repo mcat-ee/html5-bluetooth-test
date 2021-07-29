@@ -1,0 +1,29 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <button id="bluetoothInfoButton">Get Bluetooth Device Selection Dialogue</button>
+        <script>
+            function getDevices () {
+                navigator.bluetooth.requestDevice({
+                    acceptAllDevices: true,
+                })
+                .then(device => { /* … */
+                    console.log("Got BT response")
+                    console.log(device) })
+                .catch(error => { 
+                    const errorString = error.toString();
+                    if( errorString.indexOf("cancelled") != -1) {
+                        console.log("User exited bluetooth selection dialogue");
+                    } else {
+                        console.log("Unexpected error");
+                        console.error(error); 
+                    }
+                });
+            }
+            var button = document.getElementById("bluetoothInfoButton");
+            button.onclick = getDevices;
+        </script>
+
+    </body>
